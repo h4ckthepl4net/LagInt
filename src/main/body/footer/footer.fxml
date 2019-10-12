@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="main.body.footer.FooterController"
+      fx:id="footer"
+      alignment="CENTER_LEFT"
+      spacing="5.0">
+    <padding>
+        <Insets left="5.0"/>
+    </padding>
+</HBox>
