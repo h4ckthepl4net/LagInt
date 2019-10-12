@@ -14,8 +14,6 @@ import java.util.ResourceBundle;
 
 public class BodyController implements Initializable {
 
-    body model = new body();
-
     @FXML
     private GridPane body;
 
