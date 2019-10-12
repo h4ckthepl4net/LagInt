@@ -1,1 +1,2 @@
-*.fxml linguist-vendored=false
+*.xml linguist-vendored
+*.fxml linguist-vendored
