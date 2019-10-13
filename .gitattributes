@@ -1,3 +1,2 @@
-*.xml linguist-vendored=true
-*.fxml linguist-vendored=true
-*.java linguist-vendored=false
+*.xml linguist-language=Java
+*.fxml linguist-language=Java
