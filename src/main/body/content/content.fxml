@@ -4,6 +4,7 @@
 
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
+      fx:id="contentBox"
       fx:controller="main.body.content.ContentController">
 
 </HBox>
