@@ -2,8 +2,9 @@
 
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.text.Text?>
 <GridPane xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
           fx:controller="main.body.content.info.InfoController">
-
+    <Text text="%info"/>
 </GridPane>

@@ -1,13 +1,8 @@
 package main.body.footer;
 
+import classes.footer.enums.MessageType;
+
 class footer {
-
-    public enum MessageType {
-        ERROR,
-        WARNING,
-        TEXT
-    }
-
     String lastMessage = null;
     MessageType lastMessageType = null;
 }

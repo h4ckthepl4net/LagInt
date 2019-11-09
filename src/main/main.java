@@ -3,9 +3,15 @@ package main;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 public class main extends Application {
+
+    private static MainController mainController = null;
 
     private static Stage _currentStage;
     private static void set_currentStage(Stage stg) {
@@ -26,17 +32,35 @@ public class main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Lagrange interpolation (Lagrange polynomial)");
         primaryStage.setMinHeight(500);
         primaryStage.setMinWidth(700);
         main.set_currentStage(primaryStage);
-        main.set_currentScene(new Scene(FXMLLoader.load(getClass().getResource("/main/main.fxml")), 900, 500));
+        this.initMain();
     }
 
     public static void main(String[] args) {
         Thread.setDefaultUncaughtExceptionHandler((Thread exc, Throwable t) -> System.out.println("Uncaught error: " + t.getMessage() + "(" + t.getLocalizedMessage() + ")" + " - " + t.getCause()));
         launch(args);
+    }
+
+    private void initMain() throws Exception {
+        GridPane mainPane = null;
+        try {
+            ResourceBundle mainBundle = ResourceBundle.getBundle("bundles/locale", new Locale("hy"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/main.fxml"), mainBundle);
+            mainPane = loader.load();
+            main.mainController = loader.getController();
+            main.mainController.mainBundle = mainBundle;
+        } catch(Exception exc) {
+            System.out.println(exc.getMessage()+ " : " + exc.getCause());
+        }
+        if(mainPane != null) {
+            main.set_currentScene(new Scene(mainPane, 900, 500));
+        } else {
+            throw new Exception("Can not load body");
+        }
     }
 
 }

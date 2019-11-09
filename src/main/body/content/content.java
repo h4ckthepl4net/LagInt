@@ -1,11 +1,7 @@
 package main.body.content;
 
-public class content {
-    public enum ContentState {
-        INFO,
-        INPUT,
-        OUTPUT
-    }
+import classes.content.enums.ContentState;
 
+public class content {
     ContentState state = ContentState.INFO;
 }

@@ -20,5 +20,14 @@
         <jarDirectory url="file://C:/Program Files/Java/javafx-sdk-11.0.2/lib" recursive="false" type="SOURCES" />
       </library>
     </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../For education/Design Patterns/JAVA/javaFlowObserver/out/artifacts/javaFlowObserver_jar/javaFlowObserver.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

@@ -1,19 +1,24 @@
 package main.body.header;
 
+import ObserverObservable.Observer;
+import classes.header.HeaderEvent;
+import classes.header.enums.EventType;
+import classes.header.enums.LocationChangeType;
 import javafx.fxml.FXML;
 
 public class HeaderController {
 
+    public Observer headerEventDispatcher = new Observer();
     private header model = new header();
 
     @FXML
     public void onNext() {
-        System.out.println("next");
-        this.model.history.add("next");
+        HeaderEvent event = new HeaderEvent(EventType.CHANGE_LOCATION, LocationChangeType.GO_FORWARD);
+        headerEventDispatcher.emit(event);
     }
     @FXML
     public void onBack() {
-        System.out.println("back");
-        this.model.history.add("back");
+        HeaderEvent event = new HeaderEvent(EventType.CHANGE_LOCATION, LocationChangeType.GO_BACKWARD);
+        headerEventDispatcher.emit(event);
     }
 }

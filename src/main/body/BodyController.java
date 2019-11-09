@@ -1,18 +1,21 @@
 package main.body;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.GridPane;
+import main.body.header.HeaderController;
 import main.body.content.ContentController;
 import main.body.footer.FooterController;
-import main.body.header.HeaderController;
-
-import java.net.URL;
-import java.util.ResourceBundle;
+import ObserverObservable.Observable;
+import classes.header.HeaderEventHandler;
 
 public class BodyController implements Initializable {
+
+    private Observable headerEventListener = new Observable(new HeaderEventHandler(this));
 
     @FXML
     private GridPane body;
@@ -27,9 +30,9 @@ public class BodyController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            this.initHeader();
-            this.initContent();
-            this.initFooter();
+            this.initHeader(resources);
+            this.initContent(resources);
+            this.initFooter(resources);
         } catch (Exception exc)
         {
             System.out.println("Error in BodyController@initialize(): " + exc.getMessage() +
@@ -37,10 +40,16 @@ public class BodyController implements Initializable {
         }
     }
 
-    private void initHeader() throws Exception {
+    public void onUnhandledEvent(Object o) {
+        System.out.println("BodyController::onUnhandledEvent --- Got an unhandled event --- " + o.getClass().getSimpleName() + " ---");
+        System.out.println(" --- " + o.toString() + " --- ");
+    }
+
+    private void initHeader(ResourceBundle resourceBundle) throws Exception {
         HBox header = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/body/header/header.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/body/header/header.fxml"),
+                                               resourceBundle);
             header = loader.load();
             this.headerController = loader.getController();
         } catch(Exception exc) {
@@ -53,11 +62,13 @@ public class BodyController implements Initializable {
         } else {
             throw new Exception("Header can not be loaded");
         }
+        this.headerController.headerEventDispatcher.subscribe(this.headerEventListener);
     }
-    private void initContent() throws Exception {
+    private void initContent(ResourceBundle resourceBundle) throws Exception {
         HBox content = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/body/content/content.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/body/content/content.fxml"),
+                                               resourceBundle);
             content = loader.load();
             this.contentController = loader.getController();
         } catch(Exception exc) {
@@ -71,14 +82,15 @@ public class BodyController implements Initializable {
             throw new Exception("Content can not be loaded");
         }
     }
-    private void initFooter() throws Exception {
+    private void initFooter(ResourceBundle resourceBundle) throws Exception {
         HBox footer = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/body/footer/footer.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/body/footer/footer.fxml"),
+                                               resourceBundle);
             footer = loader.load();
             this.footerController = loader.getController();
         } catch(Exception exc) {
-            System.out.println(exc.getMessage()+ " : " + exc.getCause());
+            System.out.println(exc.getMessage() + " : " + exc.getCause());
         }
         if(footer != null) {
             this.body.getChildren().add(footer);

@@ -4,11 +4,10 @@ import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import main.main;
-import main.body.footer.footer.MessageType;
+import javafx.scene.text.Font;
+import javafx.scene.paint.Color;
+import classes.footer.enums.MessageType;
 
 public class FooterController {
 
@@ -19,7 +18,7 @@ public class FooterController {
 
     public void setMessage(String message, MessageType mode) throws Exception {
         Color textColor = Color.BLACK;
-        String iconURL = "file:assets/icons/";
+        String iconURL = "resources/images/icons/footer/";
         if(mode == MessageType.TEXT) {
             textColor = Color.rgb(70, 88, 204);
             iconURL += "text.png";

@@ -7,5 +7,6 @@
           alignment="center">
     <Button prefWidth="${mainPane.prefWidth}"
             prefHeight="${mainPane.prefHeight}"
-            onMouseClicked="#onStart">Start</Button>
+            text="%start"
+            onMouseClicked="#onStart"/>
 </GridPane>
