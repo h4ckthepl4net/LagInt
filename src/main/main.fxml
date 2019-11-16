@@ -8,5 +8,5 @@
     <Button prefWidth="${mainPane.prefWidth}"
             prefHeight="${mainPane.prefHeight}"
             text="%start"
-            onMouseClicked="#onStart"/>
+            onAction="#onStart"/>
 </GridPane>
