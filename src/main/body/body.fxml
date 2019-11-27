@@ -5,7 +5,7 @@
 <GridPane xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
           fx:controller="main.body.BodyController"
-          fx:id="body"
+          fx:id="mainPane"
           gridLinesVisible="true">
     <columnConstraints>
         <ColumnConstraints hgrow="ALWAYS"/>

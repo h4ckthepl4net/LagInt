@@ -1,14 +1,7 @@
 package main.body.content.info;
 
-import javafx.fxml.Initializable;
+import classes.common.classes.BaseController;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+public class InfoController extends BaseController {
 
-public class InfoController implements Initializable {
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
 }

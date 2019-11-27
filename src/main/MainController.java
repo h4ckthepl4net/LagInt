@@ -3,17 +3,12 @@ package main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.GridPane;
+
+import classes.common.classes.BaseController;
+
 import main.body.BodyController;
 
-import java.util.Locale;
-import java.util.ResourceBundle;
-
-public class MainController {
-
-    ResourceBundle mainBundle;
-
-    @FXML
-    public GridPane mainPane;
+public class MainController extends BaseController {
 
     @FXML
     private BodyController bodyController;
@@ -26,14 +21,14 @@ public class MainController {
     private void initBody() throws Exception {
         GridPane body = null;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/body/body.fxml"), this.mainBundle);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/body/body.fxml"));
             body = loader.load();
             this.bodyController = loader.getController();
         } catch(Exception exc) {
             System.out.println(exc.getMessage() + " : " + exc.getCause());
         }
         if(body != null) {
-            this.mainPane.getChildren().setAll(body);
+            ((GridPane)this.mainPane).getChildren().setAll(body);
             body.prefWidthProperty().bind(main.get_currentScene().widthProperty());
             body.prefHeightProperty().bind(main.get_currentScene().heightProperty());
         } else {

@@ -3,7 +3,8 @@
 <?import javafx.scene.layout.*?>
 
 <GridPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="main.body.content.input.InputController">
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="main.body.content.input.InputController"
+          fx:id="mainPane">
 
 </GridPane>

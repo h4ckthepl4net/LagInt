@@ -1,9 +1,15 @@
 package classes.header;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import ObserverObservable.Interface.ObservableCallBackReceiver;
+
+import classes.common.classes.LocaleBindingFactory;
 import classes.header.enums.LanguageChangeType;
 import classes.header.enums.LocationChangeType;
 import classes.header.enums.ThemeChangeType;
+
 import main.body.BodyController;
 
 public class HeaderEventHandler implements ObservableCallBackReceiver {
@@ -55,7 +61,20 @@ public class HeaderEventHandler implements ObservableCallBackReceiver {
     }
 
     private void changeLanguage(LanguageChangeType changeTo) {
-
+        switch (changeTo) {
+            case LANGUAGE_AM:
+                LocaleBindingFactory.setResources(ResourceBundle.getBundle("bundles/locale", new Locale("hy")));
+                break;
+            case LANGUAGE_EN:
+                LocaleBindingFactory.setResources(ResourceBundle.getBundle("bundles/locale", new Locale("en")));
+                break;
+            case LANGUAGE_RU:
+                LocaleBindingFactory.setResources(ResourceBundle.getBundle("bundles/locale", new Locale("ru")));
+                break;
+            default:
+                //TODO add logging
+                break;
+        }
     }
 
     private void changeTheme(ThemeChangeType changeTo) {

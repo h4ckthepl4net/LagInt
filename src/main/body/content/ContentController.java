@@ -2,31 +2,24 @@ package main.body.content;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.fxml.FXML;
+
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.GridPane;
-import main.body.content.info.InfoController;
-import main.body.content.input.InputController;
-import main.body.content.output.OutputController;
+
+import classes.common.classes.BaseController;
 import classes.content.enums.ContentState;
 
-public class ContentController implements Initializable {
+public class ContentController extends BaseController {
 
     private content model = new content();
 
-    private InfoController infoController = null;
-    private InputController inputController = null;
-    private OutputController outputController = null;
-
-    @FXML
-    public HBox contentBox;
+    private BaseController currentContentController = null;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL location, ResourceBundle resourceBundle) {
+        super.initialize(location, resourceBundle);
         try {
-            this.initContent(ContentState.INFO, resourceBundle);
+            this.initContent(ContentState.INFO);
         } catch (Exception exc)
         {
             System.out.println("Error in BodyController@initialize(): " + exc.getMessage() +
@@ -34,29 +27,25 @@ public class ContentController implements Initializable {
         }
     }
 
-    private void initContent(ContentState state, ResourceBundle resourceBundle) throws Exception {
+    private void initContent(ContentState state) throws Exception {
         GridPane content = null;
         try {
             String resourceString = this.getResourceString(state);
             if (resourceString == null)
                 throw new AssertionError("Cannot get resource string");
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(resourceString), resourceBundle);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(resourceString));
             content = loader.load();
-            if(state == ContentState.INFO) {
-                this.infoController = loader.getController();
-            } else if (state == ContentState.INPUT) {
-                this.inputController = loader.getController();
-            } else if (state == ContentState.OUTPUT) {
-                this.outputController = loader.getController();
-            }
+            this.currentContentController = loader.getController();
         } catch(Exception exc) {
             System.out.println(exc.getMessage()+ " : " + exc.getCause());
         }
         if(content != null) {
-            this.contentBox.getChildren().setAll(content);
+            ((GridPane)mainPane).getChildren().setAll(content);
             this.model.state = state;
+            GridPane.setColumnIndex(content, 0);
+            GridPane.setRowIndex(content, 0);
         } else {
-            throw new Exception("Content can not be loaded");
+            throw new Exception("Content with state " + state.name() + " can not be loaded");
         }
     }
 

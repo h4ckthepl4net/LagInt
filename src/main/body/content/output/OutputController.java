@@ -1,17 +1,9 @@
 package main.body.content.output;
 
-import javafx.fxml.Initializable;
+import classes.common.classes.BaseController;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
-public class OutputController implements Initializable {
+public class OutputController extends BaseController {
 
     public output model = new output();
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
 
 }

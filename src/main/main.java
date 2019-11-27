@@ -1,13 +1,15 @@
 package main;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
-
 import java.util.Locale;
 import java.util.ResourceBundle;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
+
+import classes.common.classes.LocaleBindingFactory;
 
 public class main extends Application {
 
@@ -37,6 +39,7 @@ public class main extends Application {
         primaryStage.setMinHeight(500);
         primaryStage.setMinWidth(700);
         main.set_currentStage(primaryStage);
+        LocaleBindingFactory.setResources(ResourceBundle.getBundle("bundles/locale", new Locale("hy")));
         this.initMain();
     }
 
@@ -48,11 +51,9 @@ public class main extends Application {
     private void initMain() throws Exception {
         GridPane mainPane = null;
         try {
-            ResourceBundle mainBundle = ResourceBundle.getBundle("bundles/locale", new Locale("hy"));
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/main.fxml"), mainBundle);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/main.fxml"));
             mainPane = loader.load();
             main.mainController = loader.getController();
-            main.mainController.mainBundle = mainBundle;
         } catch(Exception exc) {
             System.out.println(exc.getMessage()+ " : " + exc.getCause());
         }

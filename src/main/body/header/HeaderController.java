@@ -1,12 +1,15 @@
 package main.body.header;
 
+import javafx.fxml.FXML;
+
 import ObserverObservable.Observer;
+
+import classes.common.classes.BaseController;
 import classes.header.HeaderEvent;
 import classes.header.enums.EventType;
 import classes.header.enums.LocationChangeType;
-import javafx.fxml.FXML;
 
-public class HeaderController {
+public class HeaderController extends BaseController {
 
     public Observer headerEventDispatcher = new Observer();
     private header model = new header();

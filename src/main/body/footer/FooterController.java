@@ -1,20 +1,18 @@
 package main.body.footer;
 
-import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.Font;
 import javafx.scene.paint.Color;
+
+import classes.common.classes.BaseController;
 import classes.footer.enums.MessageType;
 
-public class FooterController {
+public class FooterController extends BaseController {
 
     private footer model = new footer();
-
-    @FXML
-    private HBox footer;
 
     public void setMessage(String message, MessageType mode) throws Exception {
         Color textColor = Color.BLACK;
@@ -34,15 +32,15 @@ public class FooterController {
         txt.setFont(new Font("Verdana", 15));
         txt.setFill(textColor);
 
-        if(this.footer != null) {
-            this.footer.getChildren().clear();
+        if(this.mainPane != null) {
+            HBox mainPane = (HBox)this.mainPane;
+            mainPane.getChildren().clear();
             ImageView imgView = new ImageView();
-            Image img = new Image(iconURL);
-            imgView.setImage(img);
+            imgView.setImage(new Image(iconURL));
             imgView.setFitHeight(20);
             imgView.setFitWidth(20);
-            this.footer.getChildren().add(imgView);
-            this.footer.getChildren().add(txt);
+            mainPane.getChildren().add(imgView);
+            mainPane.getChildren().add(txt);
             this.model.lastMessage = message;
             this.model.lastMessageType = mode;
         } else {

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.*?>
-
 <?import javafx.scene.control.Button?>
+
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="main.body.header.HeaderController"
+      fx:id="mainPane"
       prefHeight="50">
-    <Button prefHeight="50" onMouseClicked="#onBack" text="%back"/>
-    <Button prefHeight="50" onMouseClicked="#onNext" text="%next"/>
+    <Button text="&lt;&amp;$back$&amp;&gt;" prefHeight="50" onMouseClicked="#onBack"/>
+    <Button text="&lt;&amp;$next$&amp;&gt;" prefHeight="50" onMouseClicked="#onNext"/>
 </HBox>

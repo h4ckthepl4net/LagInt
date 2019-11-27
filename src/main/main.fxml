@@ -1,12 +1,12 @@
 <?import javafx.scene.layout.GridPane?>
-
 <?import javafx.scene.control.Button?>
+
 <GridPane xmlns:fx="http://javafx.com/fxml"
           fx:controller="main.MainController"
           fx:id="mainPane"
           alignment="center">
-    <Button prefWidth="${mainPane.prefWidth}"
+    <Button text="&lt;&amp;$start$&amp;&gt;"
+            prefWidth="${mainPane.prefWidth}"
             prefHeight="${mainPane.prefHeight}"
-            text="%start"
             onAction="#onStart"/>
 </GridPane>
