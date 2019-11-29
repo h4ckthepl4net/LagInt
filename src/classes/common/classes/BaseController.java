@@ -4,6 +4,7 @@ import java.net.URL;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,11 +14,15 @@ import javafx.beans.property.StringProperty;
 import javafx.scene.Parent;
 
 public abstract class BaseController implements Initializable {
+
     @FXML
     public Parent mainPane;
 
+    protected Preferences classPrefs;
+
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL location, ResourceBundle resourceBundle) {
+        classPrefs = Preferences.userNodeForPackage(this.getClass());
         this.bind();
     }
 

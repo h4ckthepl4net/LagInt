@@ -2,11 +2,26 @@
 
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.control.CheckBox?>
 
 <GridPane xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
           fx:controller="main.body.content.info.InfoController"
           fx:id="mainPane"
-          alignment="CENTER">
-    <Text text="&lt;&amp;$info$&amp;&gt;"/>
+          alignment="CENTER"
+          gridLinesVisible="true">
+    <columnConstraints>
+        <ColumnConstraints halignment="CENTER"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints valignment="CENTER" vgrow="ALWAYS"/>
+        <RowConstraints valignment="CENTER" prefHeight="50"/>
+    </rowConstraints>
+    <Text GridPane.columnIndex="0"
+          GridPane.rowIndex="0"
+          text="&lt;&amp;$info$&amp;&gt;"/>
+    <CheckBox GridPane.columnIndex="0"
+              GridPane.rowIndex="1"
+              text="&lt;&amp;$dont_show_again$&amp;&gt;"
+              onAction="#toggleDontShowAgain"/>
 </GridPane>

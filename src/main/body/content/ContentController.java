@@ -19,7 +19,8 @@ public class ContentController extends BaseController {
     public void initialize(URL location, ResourceBundle resourceBundle) {
         super.initialize(location, resourceBundle);
         try {
-            this.initContent(ContentState.INFO);
+            boolean dont_show_info_again = this.classPrefs.node("info").getBoolean("dont_show_info_again", false);
+            this.initContent(dont_show_info_again ? ContentState.INPUT : ContentState.INFO);
         } catch (Exception exc)
         {
             System.out.println("Error in BodyController@initialize(): " + exc.getMessage() +
@@ -54,9 +55,9 @@ public class ContentController extends BaseController {
             case INFO:
                 return "/main/body/content/info/info.fxml";
             case INPUT:
-                return "/main/body/content/info/input.fxml";
+                return "/main/body/content/input/input.fxml";
             case OUTPUT:
-                return "/main/body/content/info/output.fxml";
+                return "/main/body/content/output/output.fxml";
             default:
                 return null;
         }

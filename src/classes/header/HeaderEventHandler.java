@@ -57,7 +57,17 @@ public class HeaderEventHandler implements ObservableCallBackReceiver {
     }
 
     private void changeLocation(LocationChangeType changeTo) {
+        switch (changeTo) {
+            case GO_BACKWARD:
 
+                break;
+            case GO_FORWARD:
+
+                break;
+            default:
+                //TODO add logging
+                break;
+        }
     }
 
     private void changeLanguage(LanguageChangeType changeTo) {
