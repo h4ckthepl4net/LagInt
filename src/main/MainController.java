@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.GridPane;
 
+import classes.common.classes.AnsiUtils;
 import classes.common.classes.BaseController;
 
 import main.body.BodyController;
@@ -25,7 +26,9 @@ public class MainController extends BaseController {
             body = loader.load();
             this.bodyController = loader.getController();
         } catch(Exception exc) {
-            System.out.println(exc.getMessage() + " : " + exc.getCause());
+            System.out.println(AnsiUtils.ANSI_RED +
+                    "Error in MainController@initBody(): " + exc.getMessage() + " : " + exc.getCause() +
+                    AnsiUtils.ANSI_RESET);
         }
         if(body != null) {
             ((GridPane)this.mainPane).getChildren().setAll(body);

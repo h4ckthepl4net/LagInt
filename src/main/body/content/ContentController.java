@@ -6,12 +6,13 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.GridPane;
 
+import classes.common.classes.AnsiUtils;
 import classes.common.classes.BaseController;
 import classes.content.enums.ContentState;
 
 public class ContentController extends BaseController {
 
-    private content model = new content();
+    public content model = new content();
 
     private BaseController currentContentController = null;
 
@@ -23,12 +24,14 @@ public class ContentController extends BaseController {
             this.initContent(dont_show_info_again ? ContentState.INPUT : ContentState.INFO);
         } catch (Exception exc)
         {
-            System.out.println("Error in BodyController@initialize(): " + exc.getMessage() +
-                    "(" + exc.getLocalizedMessage() +")" + " - " + exc.getCause());
+            System.out.println(AnsiUtils.ANSI_RED +
+                    "Error in ContentController@initialize(): " +
+                    exc.getMessage() + "(" + exc.getLocalizedMessage() +") - " + exc.getCause() +
+                    AnsiUtils.ANSI_RESET);
         }
     }
 
-    private void initContent(ContentState state) throws Exception {
+    public void initContent(ContentState state) throws Exception {
         GridPane content = null;
         try {
             String resourceString = this.getResourceString(state);
@@ -38,7 +41,9 @@ public class ContentController extends BaseController {
             content = loader.load();
             this.currentContentController = loader.getController();
         } catch(Exception exc) {
-            System.out.println(exc.getMessage()+ " : " + exc.getCause());
+            System.out.println(AnsiUtils.ANSI_RED +
+                    "Error in ContentController@initContent(): " + exc.getMessage()+ " : " + exc.getCause() +
+                    AnsiUtils.ANSI_RESET);
         }
         if(content != null) {
             ((GridPane)mainPane).getChildren().setAll(content);

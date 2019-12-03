@@ -27,25 +27,35 @@ public abstract class BaseController implements Initializable {
     }
 
     private void bind() {
-        Pattern pattern = Pattern.compile("['\"]<&\\$.*\\$&>['\"]");
+        Pattern pattern = Pattern.compile("<&\\$.*\\$&>");
         for(Object child : this.mainPane.getChildrenUnmodifiable()) {
-            String childAsString = child.toString();
-            Matcher matcher = pattern.matcher(childAsString);
-            if(matcher.find()) {
-                String foundStr = matcher.group();
-                Class<?> cls = child.getClass();
-                Method textPropertyMethod;
-                try {
+            Class<?> cls = child.getClass();
+            Method getTextMethod = null, textPropertyMethod;
+            try {
+                getTextMethod = cls.getMethod("getText");
+                String childText = (String)getTextMethod.invoke(child);
+                Matcher matcher = pattern.matcher(childText);
+                if (matcher.find()) {
+                    String foundStr = matcher.group();
                     textPropertyMethod = cls.getMethod("textProperty");
                     ((StringProperty)textPropertyMethod.invoke(child))
-                            .bind(LocaleBindingFactory.getBinding(foundStr.substring(4, foundStr.length()-4)));
-                } catch(NoSuchMethodException e) {
-                    System.out.println("Cannot get method textProperty");//TODO
-                }  catch(IllegalAccessException e) {
-                    System.out.println("textProperty method is not accessible");//TODO
-                } catch (InvocationTargetException e) {
-                    System.out.println("textProperty method threw an exception");//TODO
+                            .bind(LocaleBindingFactory.getBinding(foundStr.substring(3, foundStr.length()-3)));
                 }
+            } catch(NoSuchMethodException e) {
+                System.out.println(AnsiUtils.ANSI_RED +
+                        "Error in BaseController@bind(): Reflection can not get method " + e.getMessage() +
+                        AnsiUtils.ANSI_RESET);
+            }  catch(IllegalAccessException e) {
+                System.out.println(AnsiUtils.ANSI_RED +
+                        "Error in BaseController@bind(): Reflection can not access " +
+                        child.getClass().getName() + ((getTextMethod == null) ? ".getText()" : ".textProperty()") +
+                        AnsiUtils.ANSI_RESET);
+            } catch (InvocationTargetException e) {
+                System.out.println(AnsiUtils.ANSI_RED +
+                        "Error in BaseController@bind(): Method " +
+                        child.getClass().getName() + ((getTextMethod == null) ? ".getText()" : ".textProperty()") +
+                        " threw an exception on invocation" +
+                        AnsiUtils.ANSI_RESET);
             }
         }
     }

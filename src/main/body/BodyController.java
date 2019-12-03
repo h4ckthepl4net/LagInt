@@ -10,6 +10,7 @@ import javafx.scene.layout.GridPane;
 
 import ObserverObservable.Observable;
 
+import classes.common.classes.AnsiUtils;
 import classes.header.HeaderEventHandler;
 import classes.common.classes.BaseController;
 
@@ -22,9 +23,9 @@ public class BodyController extends BaseController {
     private Observable headerEventListener = new Observable(new HeaderEventHandler(this));
 
     @FXML
-    private HeaderController headerController;
+    public HeaderController headerController;
     @FXML
-    private ContentController contentController;
+    public ContentController contentController;
     @FXML
     private FooterController footerController;
 
@@ -37,14 +38,18 @@ public class BodyController extends BaseController {
             this.initFooter();
         } catch (Exception exc)
         {
-            System.out.println("Error in BodyController@initialize(): " + exc.getMessage() +
-                                "(" + exc.getLocalizedMessage() +")" + " - " + exc.getCause());
+            System.out.println(AnsiUtils.ANSI_RED +
+                    "Error in BodyController@initialize(): " +
+                    exc.getMessage() + "(" + exc.getLocalizedMessage() +") - " + exc.getCause() +
+                    AnsiUtils.ANSI_RESET);
         }
     }
 
     public void onUnhandledEvent(Object o) {
-        System.out.println("BodyController::onUnhandledEvent --- Got an unhandled event --- " + o.getClass().getSimpleName() + " ---");
-        System.out.println(" --- " + o.toString() + " --- ");
+        System.out.println(AnsiUtils.ANSI_YELLOW +
+                "Warning in BodyController@onUnhandledEvent(): Got an unhandled event of type " +
+                o.getClass().getSimpleName() + " " + AnsiUtils.ANSI_RESET);
+        System.out.println(AnsiUtils.ANSI_YELLOW + " --- " + o.toString() + " --- " + AnsiUtils.ANSI_RESET);
     }
 
     private void initHeader() throws Exception {
@@ -54,7 +59,9 @@ public class BodyController extends BaseController {
             header = loader.load();
             this.headerController = loader.getController();
         } catch(Exception exc) {
-            System.out.println(exc.getMessage()+ " : " + exc.getCause());
+            System.out.println(AnsiUtils.ANSI_RED +
+                    "Error in BodyController@initHeader(): " + exc.getMessage()+ " : " + exc.getCause() +
+                    AnsiUtils.ANSI_RESET);
         }
         if(header != null) {
             ((GridPane)this.mainPane).getChildren().add(header);
@@ -72,7 +79,9 @@ public class BodyController extends BaseController {
             content = loader.load();
             this.contentController = loader.getController();
         } catch(Exception exc) {
-            System.out.println(exc.getMessage()+ " : " + exc.getCause());
+            System.out.println(AnsiUtils.ANSI_RED +
+                    "Error in BodyController@initContent(): " + exc.getMessage()+ " : " + exc.getCause() +
+                    AnsiUtils.ANSI_RESET);
         }
         if(content != null) {
             ((GridPane)this.mainPane).getChildren().add(content);
@@ -89,7 +98,9 @@ public class BodyController extends BaseController {
             footer = loader.load();
             this.footerController = loader.getController();
         } catch(Exception exc) {
-            System.out.println(exc.getMessage() + " : " + exc.getCause());
+            System.out.println(AnsiUtils.ANSI_RED +
+                    "Error in BodyController@initFooter(): " + exc.getMessage() + " : " + exc.getCause() +
+                    AnsiUtils.ANSI_RESET);
         }
         if(footer != null) {
             ((GridPane)this.mainPane).getChildren().add(footer);

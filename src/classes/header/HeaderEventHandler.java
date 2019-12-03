@@ -2,13 +2,16 @@ package classes.header;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 
 import ObserverObservable.Interface.ObservableCallBackReceiver;
 
+import classes.common.classes.AnsiUtils;
 import classes.common.classes.LocaleBindingFactory;
 import classes.header.enums.LanguageChangeType;
 import classes.header.enums.LocationChangeType;
 import classes.header.enums.ThemeChangeType;
+import classes.content.enums.ContentState;
 
 import main.body.BodyController;
 
@@ -31,12 +34,16 @@ public class HeaderEventHandler implements ObservableCallBackReceiver {
 
     @Override
     public void onComplete(int streamId) {
-        System.out.println("HeaderEventHandler::onComplete --- Stream with id " + streamId + " has been completed ---");
+        System.out.println(AnsiUtils.ANSI_BLUE +
+                "HeaderEventHandler@onComplete(): Stream with id " + streamId + " has been completed" +
+                AnsiUtils.ANSI_RESET);
     }
 
     @Override
     public void onCancel(int streamId) {
-        System.out.println("HeaderEventHandler::onComplete --- Stream with id " + streamId + " has been canceled ---");
+        System.out.println(AnsiUtils.ANSI_BLUE +
+                "HeaderEventHandler@onCancel(): Stream with id " + streamId + " has been canceled" +
+                AnsiUtils.ANSI_RESET);
     }
 
     private void handleHeaderEvent(HeaderEvent event) {
@@ -57,16 +64,40 @@ public class HeaderEventHandler implements ObservableCallBackReceiver {
     }
 
     private void changeLocation(LocationChangeType changeTo) {
-        switch (changeTo) {
-            case GO_BACKWARD:
-
-                break;
-            case GO_FORWARD:
-
-                break;
-            default:
-                //TODO add logging
-                break;
+        int currentStateOrdinal = this.bodyController.contentController.model.state.ordinal();
+        ContentState nextState;
+        boolean dont_show_info_again = Preferences.userRoot().node("main/body/content/info")
+                                        .getBoolean("dont_show_info_again", false);
+        try {
+            switch (changeTo) {
+                case GO_BACKWARD:
+                    nextState = ContentState.values()[currentStateOrdinal-1];
+                    if(nextState == ContentState.INFO && !dont_show_info_again ||
+                        nextState == ContentState.INPUT && dont_show_info_again) {
+                        this.bodyController.headerController.isBackButtonDisabled.set(true);
+                    }
+                    this.bodyController.headerController.isNextButtonDisabled.set(false);
+                    this.bodyController.contentController.initContent(nextState);
+                    break;
+                case GO_FORWARD:
+                    nextState = ContentState.values()[currentStateOrdinal+1];
+                    if(nextState == ContentState.OUTPUT) {
+                        this.bodyController.headerController.isNextButtonDisabled.set(true);
+                    }
+                    this.bodyController.headerController.isBackButtonDisabled.set(nextState == ContentState.INPUT && dont_show_info_again);
+                    this.bodyController.contentController.initContent(nextState);
+                    break;
+                default:
+                    System.out.println(AnsiUtils.ANSI_YELLOW +
+                            "Warning in HeaderEventHandler@changeLocation(): No change detected" +
+                            AnsiUtils.ANSI_RESET);
+                    break;
+            }
+        } catch (Exception exc) {
+            System.out.println(AnsiUtils.ANSI_RED +
+                    "Error in HeaderEventHandler@changeLocation(): " +
+                    exc.getMessage() + "(" + exc.getLocalizedMessage() +") - " + exc.getCause() +
+                    AnsiUtils.ANSI_RESET);
         }
     }
 
@@ -82,7 +113,9 @@ public class HeaderEventHandler implements ObservableCallBackReceiver {
                 LocaleBindingFactory.setResources(ResourceBundle.getBundle("bundles/locale", new Locale("ru")));
                 break;
             default:
-                //TODO add logging
+                System.out.println(AnsiUtils.ANSI_YELLOW +
+                        "Warning in HeaderEventHandler@changeLanguage(): No change detected" +
+                        AnsiUtils.ANSI_RESET);
                 break;
         }
     }

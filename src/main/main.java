@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 
+import classes.common.classes.AnsiUtils;
 import classes.common.classes.LocaleBindingFactory;
 
 public class main extends Application {
@@ -44,7 +45,11 @@ public class main extends Application {
     }
 
     public static void main(String[] args) {
-        Thread.setDefaultUncaughtExceptionHandler((Thread exc, Throwable t) -> System.out.println("Uncaught error: " + t.getMessage() + "(" + t.getLocalizedMessage() + ")" + " - " + t.getCause()));
+        Thread.setDefaultUncaughtExceptionHandler((Thread exc, Throwable t) ->
+                System.out.println(AnsiUtils.ANSI_RED +
+                        "Uncaught error: " + t.getMessage() + "(" + t.getLocalizedMessage() + ") - " + t.getCause() +
+                        AnsiUtils.ANSI_RESET)
+        );
         launch(args);
     }
 
@@ -55,7 +60,9 @@ public class main extends Application {
             mainPane = loader.load();
             main.mainController = loader.getController();
         } catch(Exception exc) {
-            System.out.println(exc.getMessage()+ " : " + exc.getCause());
+            System.out.println(AnsiUtils.ANSI_RED +
+                    "Error in main@initMain(): " + exc.getMessage()+ " : " + exc.getCause() +
+                    AnsiUtils.ANSI_RESET);
         }
         if(mainPane != null) {
             main.set_currentScene(new Scene(mainPane, 900, 500));
