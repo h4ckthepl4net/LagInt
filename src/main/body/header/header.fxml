@@ -8,6 +8,6 @@
       fx:controller="main.body.header.HeaderController"
       fx:id="mainPane"
       prefHeight="50">
-    <Button id="backButton" text="&lt;&amp;$back$&amp;&gt;" prefHeight="50" onMouseClicked="#onBack"/>
-    <Button id="nextButton" text="&lt;&amp;$next$&amp;&gt;" prefHeight="50" onMouseClicked="#onNext"/>
+    <Button id="backButton" text="&lt;&amp;$back$&amp;&gt;" prefHeight="50" onAction="#onBack"/>
+    <Button id="nextButton" text="&lt;&amp;$next$&amp;&gt;" prefHeight="50" onAction="#onNext"/>
 </HBox>

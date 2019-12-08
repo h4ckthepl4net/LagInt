@@ -47,7 +47,8 @@ public class main extends Application {
     public static void main(String[] args) {
         Thread.setDefaultUncaughtExceptionHandler((Thread exc, Throwable t) ->
                 System.out.println(AnsiUtils.ANSI_RED +
-                        "Uncaught error: " + t.getMessage() + "(" + t.getLocalizedMessage() + ") - " + t.getCause() +
+                        "Uncaught exception: " + t.getMessage() +
+                        " (" + t.getLocalizedMessage() + ") - " + t.getCause() +
                         AnsiUtils.ANSI_RESET)
         );
         launch(args);

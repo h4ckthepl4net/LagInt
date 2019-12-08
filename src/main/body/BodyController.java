@@ -40,7 +40,7 @@ public class BodyController extends BaseController {
         {
             System.out.println(AnsiUtils.ANSI_RED +
                     "Error in BodyController@initialize(): " +
-                    exc.getMessage() + "(" + exc.getLocalizedMessage() +") - " + exc.getCause() +
+                    exc.getMessage() + " (" + exc.getLocalizedMessage() +") - " + exc.getCause() +
                     AnsiUtils.ANSI_RESET);
         }
     }
@@ -64,7 +64,7 @@ public class BodyController extends BaseController {
                     AnsiUtils.ANSI_RESET);
         }
         if(header != null) {
-            ((GridPane)this.mainPane).getChildren().add(header);
+            this.mainPane.getChildren().add(header);
             GridPane.setColumnIndex(header, 0);
             GridPane.setRowIndex(header, 0);
         } else {
@@ -84,7 +84,7 @@ public class BodyController extends BaseController {
                     AnsiUtils.ANSI_RESET);
         }
         if(content != null) {
-            ((GridPane)this.mainPane).getChildren().add(content);
+            this.mainPane.getChildren().add(content);
             GridPane.setColumnIndex(content, 0);
             GridPane.setRowIndex(content, 1);
         } else {
@@ -103,7 +103,7 @@ public class BodyController extends BaseController {
                     AnsiUtils.ANSI_RESET);
         }
         if(footer != null) {
-            ((GridPane)this.mainPane).getChildren().add(footer);
+            this.mainPane.getChildren().add(footer);
             GridPane.setColumnIndex(footer, 0);
             GridPane.setRowIndex(footer, 2);
         } else {

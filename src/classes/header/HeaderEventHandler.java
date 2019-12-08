@@ -96,7 +96,7 @@ public class HeaderEventHandler implements ObservableCallBackReceiver {
         } catch (Exception exc) {
             System.out.println(AnsiUtils.ANSI_RED +
                     "Error in HeaderEventHandler@changeLocation(): " +
-                    exc.getMessage() + "(" + exc.getLocalizedMessage() +") - " + exc.getCause() +
+                    exc.getMessage() + " (" + exc.getLocalizedMessage() +") - " + exc.getCause() +
                     AnsiUtils.ANSI_RESET);
         }
     }

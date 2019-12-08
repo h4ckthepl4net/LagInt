@@ -26,7 +26,7 @@ public class ContentController extends BaseController {
         {
             System.out.println(AnsiUtils.ANSI_RED +
                     "Error in ContentController@initialize(): " +
-                    exc.getMessage() + "(" + exc.getLocalizedMessage() +") - " + exc.getCause() +
+                    exc.getMessage() + " (" + exc.getLocalizedMessage() +") - " + exc.getCause() +
                     AnsiUtils.ANSI_RESET);
         }
     }
@@ -46,7 +46,7 @@ public class ContentController extends BaseController {
                     AnsiUtils.ANSI_RESET);
         }
         if(content != null) {
-            ((GridPane)mainPane).getChildren().setAll(content);
+            mainPane.getChildren().setAll(content);
             this.model.state = state;
             GridPane.setColumnIndex(content, 0);
             GridPane.setRowIndex(content, 0);
